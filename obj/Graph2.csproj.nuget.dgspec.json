@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\andre\\Source\\Repos\\Graph2\\Graph2.csproj": {}
+    "C:\\Users\\andre\\source\\repos\\Graph2\\Graph2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\andre\\Source\\Repos\\Graph2\\Graph2.csproj": {
+    "C:\\Users\\andre\\source\\repos\\Graph2\\Graph2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\andre\\Source\\Repos\\Graph2\\Graph2.csproj",
+        "projectUniqueName": "C:\\Users\\andre\\source\\repos\\Graph2\\Graph2.csproj",
         "projectName": "Graph2",
-        "projectPath": "C:\\Users\\andre\\Source\\Repos\\Graph2\\Graph2.csproj",
+        "projectPath": "C:\\Users\\andre\\source\\repos\\Graph2\\Graph2.csproj",
         "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\andre\\Source\\Repos\\Graph2\\obj\\",
+        "outputPath": "C:\\Users\\andre\\source\\repos\\Graph2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
