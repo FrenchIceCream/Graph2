@@ -8,24 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\actua\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\andre\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Graphics_git\\Graph2\\Graph2\\Graph2.csproj",
+      "projectUniqueName": "C:\\Users\\andre\\Source\\Repos\\Graph2\\Graph2.csproj",
       "projectName": "Graph2",
-      "projectPath": "D:\\Graphics_git\\Graph2\\Graph2\\Graph2.csproj",
-      "packagesPath": "C:\\Users\\actua\\.nuget\\packages\\",
-      "outputPath": "D:\\Graphics_git\\Graph2\\Graph2\\obj\\",
+      "projectPath": "C:\\Users\\andre\\Source\\Repos\\Graph2\\Graph2.csproj",
+      "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\andre\\Source\\Repos\\Graph2\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\actua\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -39,16 +39,19 @@
             // 
             Canvas.BackColor = SystemColors.Window;
             Canvas.Location = new Point(0, 0);
+            Canvas.Margin = new Padding(3, 2, 3, 2);
             Canvas.Name = "Canvas";
-            Canvas.Size = new Size(827, 543);
+            Canvas.Size = new Size(724, 407);
             Canvas.TabIndex = 0;
             Canvas.TabStop = false;
+            Canvas.Click += Canvas_Click;
             // 
             // Button1
             // 
-            Button1.Location = new Point(881, 61);
+            Button1.Location = new Point(771, 46);
+            Button1.Margin = new Padding(3, 2, 3, 2);
             Button1.Name = "Button1";
-            Button1.Size = new Size(135, 36);
+            Button1.Size = new Size(118, 27);
             Button1.TabIndex = 1;
             Button1.Text = "Задание 1";
             Button1.UseVisualStyleBackColor = true;
@@ -56,9 +59,10 @@
             // 
             // Button2
             // 
-            Button2.Location = new Point(881, 157);
+            Button2.Location = new Point(771, 118);
+            Button2.Margin = new Padding(3, 2, 3, 2);
             Button2.Name = "Button2";
-            Button2.Size = new Size(135, 36);
+            Button2.Size = new Size(118, 27);
             Button2.TabIndex = 2;
             Button2.Text = "Задание 2";
             Button2.UseVisualStyleBackColor = true;
@@ -66,9 +70,10 @@
             // 
             // Button3
             // 
-            Button3.Location = new Point(881, 254);
+            Button3.Location = new Point(771, 190);
+            Button3.Margin = new Padding(3, 2, 3, 2);
             Button3.Name = "Button3";
-            Button3.Size = new Size(135, 36);
+            Button3.Size = new Size(118, 27);
             Button3.TabIndex = 3;
             Button3.Text = "Задание 3";
             Button3.UseVisualStyleBackColor = true;
@@ -76,13 +81,14 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1064, 542);
+            ClientSize = new Size(931, 406);
             Controls.Add(Button3);
             Controls.Add(Button2);
             Controls.Add(Button1);
             Controls.Add(Canvas);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Графика. Лабораторная 2";
             ((System.ComponentModel.ISupportInitialize)Canvas).EndInit();
