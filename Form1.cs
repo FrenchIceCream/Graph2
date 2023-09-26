@@ -49,7 +49,7 @@ namespace Graph2
 
         }
 
-        private void Swap(ref int x1,ref int x2)
+        private void Swap(ref int x1, ref int x2)
         {
             int x = x1; x1 = x2; x2 = x;
         }
@@ -67,7 +67,7 @@ namespace Graph2
                 y += gradient;
             }
         }*/
-    
+
 
         /*private void line(int x0, int x1, int y0, int y1)
         {
@@ -131,7 +131,7 @@ namespace Graph2
             Pen pen_r = new Pen(Color.Red, 1);
             //g.DrawRectangle(pen_r, new Rectangle(10, 10, 1, 1));
 
-            WuLine(firstPoint.Value.X, newPoint.X, firstPoint.Value.Y, newPoint.Y);
+            WuLine(firstPoint.Value.X, firstPoint.Value.Y, newPoint.X, newPoint.Y);
             /*
             int x1 = firstPoint.Value.X; int y1 = firstPoint.Value.Y;
             int x2 = newPoint.X; int y2 = newPoint.Y;
