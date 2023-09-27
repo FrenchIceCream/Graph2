@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using System.Windows.Forms;
 
 namespace Graph2
 {
@@ -8,6 +9,12 @@ namespace Graph2
         private bool isSecondActive = false;
         private Point? firstPoint = null;
         private Graphics g;
+
+        bool draw_mode = false;
+        bool fill_mode = false;
+        bool border_mode = false;
+        Color borderColor = Color.Black;
+        Bitmap texture = null;
         public Form1()
         {
             InitializeComponent();
@@ -212,6 +219,82 @@ namespace Graph2
             if (isSecondActive)
             {
                 TryDrawLine(new Point(mouseEventArgs.X, mouseEventArgs.Y));
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            draw_mode = !draw_mode;
+            fill_mode = false;
+            border_mode = false;
+            button5.BackColor = SystemColors.Control;
+            button6.BackColor = SystemColors.Control;
+
+            if (draw_mode)
+            {
+                button4.BackColor = Color.DodgerBlue;
+            }
+            else
+            {
+                button4.BackColor = SystemColors.Control;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+            fill_mode = !fill_mode;
+            draw_mode = false;
+            border_mode = false;
+            button5.BackColor = SystemColors.Control;
+            button6.BackColor = SystemColors.Control;
+
+            if (fill_mode)
+            {
+                button5.BackColor = Color.DodgerBlue;
+            }
+            else
+            {
+                button5.BackColor = SystemColors.Control;
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            border_mode = !border_mode;
+            draw_mode = false;
+            fill_mode = false;
+            button4.BackColor = SystemColors.Control;
+            button5.BackColor = SystemColors.Control;
+
+            if (border_mode)
+            {
+                button6.BackColor = Color.DodgerBlue;
+            }
+            else
+            {
+                button6.BackColor = SystemColors.Control;
+            }
+        }
+
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = ".jpg";
+            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+            if (dlg.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            else
+            {
+                /*pictureBox.Image = new Bitmap(dlg.FileName);
+                pictureBox.Invalidate();*/
+                texture = new Bitmap(dlg.FileName);
+
             }
         }
     }
