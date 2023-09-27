@@ -61,45 +61,6 @@ namespace Graph2
             int x = x1; x1 = x2; x2 = x;
         }
 
-        /*private void line(int x0, int x1, int y0, int y1)
-        {
-            DrawPoint(x1, y1, 1);
-            float dx = x1 - x0; float dy = y1 - y0;
-            float gradient = dy / dx;
-            float y = y0 + gradient;
-            for (var x = x0 + 1; x <= x1 - 1; x++)
-            {
-                DrawPoint(x, (int)y, 1 - (y - (int)y));
-                DrawPoint(x, (int)y + 1, y - (int)y);
-                y += gradient;
-            }
-        }*/
-
-
-        /*private void line(int x0, int x1, int y0, int y1)
-        {
-            int deltax = Math.Abs(x1 - x0);
-            int deltay = Math.Abs(y1 - y0);
-            double error = 0;
-            double deltaerr = (deltay + 1);
-            int y = y0;
-            int diry = y1 - y0;
-            if (diry > 0)
-                diry = 1;
-            if (diry < 0)
-                diry = -1;
-            for (int x = x0; x < x1; x++)
-            {
-                DrawPoint(x,y,)
-                error = error + deltaerr;
-                if (error >= 1.0)
-                {
-                    y = y + diry;
-                    error = error - 1.0;
-                }
-            }
-        }*/
-
         private void WuLine(int x0, int y0, int x1, int y1)
         {
             var steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
@@ -128,23 +89,12 @@ namespace Graph2
             }
         }
 
-        private void TryDrawLine(Point newPoint)
+        private void drawLine(int x1, int y1, int x2, int y2)
         {
-            if (firstPoint == null)
-            {
-                firstPoint = newPoint;
-                return;
-            }
             Pen pen_r = new Pen(Color.Red, 1);
-            //g.DrawRectangle(pen_r, new Rectangle(10, 10, 1, 1));
 
-            WuLine(firstPoint.Value.X, firstPoint.Value.Y, newPoint.X, newPoint.Y);
-            /*
-            int x1 = firstPoint.Value.X; int y1 = firstPoint.Value.Y;
-            int x2 = newPoint.X; int y2 = newPoint.Y;
-
-            int sx = x1>x2?-1:1;
-            int sy = y1>y2?-1:1;
+            int sx = x1 > x2 ? -1 : 1;
+            int sy = y1 > y2 ? -1 : 1;
 
             int dy = Math.Abs(y2 - y1);
             int dx = Math.Abs(x2 - x1);
@@ -167,12 +117,12 @@ namespace Graph2
                     }
                     else
                     {
-                        yStart+=sy;
+                        yStart += sy;
                         dStart += 2 * (dy - dx);
                     }
 
 
-                    xStart+=sx;
+                    xStart += sx;
                 }
 
 
@@ -194,16 +144,30 @@ namespace Graph2
                     }
                     else
                     {
-                        xStart+=sx;
+                        xStart += sx;
                         dStart += 2 * (dx - dy);
                     }
 
 
-                    yStart+= sy;
+                    yStart += sy;
                 }
             }
+        }
 
-            */
+        private void TryDrawLine(Point newPoint)
+        {
+            if (firstPoint == null)
+            {
+                firstPoint = newPoint;
+                return;
+            }
+            if (trackBar1.Value == 0)
+            {
+                WuLine(firstPoint.Value.X, firstPoint.Value.Y, newPoint.X, newPoint.Y);
+            }
+            else
+                drawLine(firstPoint.Value.X, firstPoint.Value.Y, newPoint.X, newPoint.Y);
+
             firstPoint = newPoint;
         }
 
@@ -296,6 +260,11 @@ namespace Graph2
                 texture = new Bitmap(dlg.FileName);
 
             }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+
         }
     }
 }

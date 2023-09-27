@@ -38,24 +38,28 @@ namespace Graph2
             button5 = new Button();
             button6 = new Button();
             button7 = new Button();
+            trackBar1 = new TrackBar();
             ((System.ComponentModel.ISupportInitialize)Canvas).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
             // Canvas
             // 
             Canvas.BackColor = SystemColors.Window;
             Canvas.Location = new Point(0, 0);
+            Canvas.Margin = new Padding(3, 2, 3, 2);
             Canvas.Name = "Canvas";
-            Canvas.Size = new Size(827, 543);
+            Canvas.Size = new Size(724, 407);
             Canvas.TabIndex = 0;
             Canvas.TabStop = false;
             Canvas.Click += Canvas_Click;
             // 
             // Button1
             // 
-            Button1.Location = new Point(881, 26);
+            Button1.Location = new Point(771, 20);
+            Button1.Margin = new Padding(3, 2, 3, 2);
             Button1.Name = "Button1";
-            Button1.Size = new Size(135, 36);
+            Button1.Size = new Size(118, 27);
             Button1.TabIndex = 1;
             Button1.Text = "Задание 1";
             Button1.UseVisualStyleBackColor = true;
@@ -63,9 +67,10 @@ namespace Graph2
             // 
             // Button2
             // 
-            Button2.Location = new Point(881, 96);
+            Button2.Location = new Point(771, 72);
+            Button2.Margin = new Padding(3, 2, 3, 2);
             Button2.Name = "Button2";
-            Button2.Size = new Size(135, 36);
+            Button2.Size = new Size(118, 27);
             Button2.TabIndex = 2;
             Button2.Text = "Задание 2";
             Button2.UseVisualStyleBackColor = true;
@@ -73,9 +78,10 @@ namespace Graph2
             // 
             // Button3
             // 
-            Button3.Location = new Point(881, 163);
+            Button3.Location = new Point(771, 170);
+            Button3.Margin = new Padding(3, 2, 3, 2);
             Button3.Name = "Button3";
-            Button3.Size = new Size(135, 36);
+            Button3.Size = new Size(118, 27);
             Button3.TabIndex = 3;
             Button3.Text = "Задание 3";
             Button3.UseVisualStyleBackColor = true;
@@ -83,9 +89,10 @@ namespace Graph2
             // 
             // button4
             // 
-            button4.Location = new Point(881, 233);
+            button4.Location = new Point(771, 201);
+            button4.Margin = new Padding(3, 2, 3, 2);
             button4.Name = "button4";
-            button4.Size = new Size(135, 36);
+            button4.Size = new Size(118, 27);
             button4.TabIndex = 4;
             button4.Text = "Рисовать";
             button4.UseVisualStyleBackColor = true;
@@ -93,9 +100,10 @@ namespace Graph2
             // 
             // button5
             // 
-            button5.Location = new Point(881, 299);
+            button5.Location = new Point(771, 232);
+            button5.Margin = new Padding(3, 2, 3, 2);
             button5.Name = "button5";
-            button5.Size = new Size(135, 36);
+            button5.Size = new Size(118, 27);
             button5.TabIndex = 5;
             button5.Text = "Залить";
             button5.UseVisualStyleBackColor = true;
@@ -103,9 +111,10 @@ namespace Graph2
             // 
             // button6
             // 
-            button6.Location = new Point(881, 364);
+            button6.Location = new Point(771, 263);
+            button6.Margin = new Padding(3, 2, 3, 2);
             button6.Name = "button6";
-            button6.Size = new Size(135, 48);
+            button6.Size = new Size(118, 36);
             button6.TabIndex = 6;
             button6.Text = "Выделить границы";
             button6.UseVisualStyleBackColor = true;
@@ -113,19 +122,30 @@ namespace Graph2
             // 
             // button7
             // 
-            button7.Location = new Point(881, 436);
+            button7.Location = new Point(771, 303);
+            button7.Margin = new Padding(3, 2, 3, 2);
             button7.Name = "button7";
-            button7.Size = new Size(135, 51);
+            button7.Size = new Size(118, 38);
             button7.TabIndex = 7;
             button7.Text = "Загрузить изображение";
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
             // 
+            // trackBar1
+            // 
+            trackBar1.Location = new Point(771, 104);
+            trackBar1.Maximum = 1;
+            trackBar1.Name = "trackBar1";
+            trackBar1.Size = new Size(118, 45);
+            trackBar1.TabIndex = 8;
+            trackBar1.Scroll += trackBar1_Scroll;
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1064, 541);
+            ClientSize = new Size(931, 406);
+            Controls.Add(trackBar1);
             Controls.Add(button7);
             Controls.Add(button6);
             Controls.Add(button5);
@@ -134,10 +154,13 @@ namespace Graph2
             Controls.Add(Button2);
             Controls.Add(Button1);
             Controls.Add(Canvas);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Графика. Лабораторная 2";
             ((System.ComponentModel.ISupportInitialize)Canvas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -150,5 +173,6 @@ namespace Graph2
         private Button button5;
         private Button button6;
         private Button button7;
+        private TrackBar trackBar1;
     }
 }
