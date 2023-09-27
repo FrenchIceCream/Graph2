@@ -23,7 +23,7 @@ namespace Graph2
 
         private void Button1_Click(object sender, EventArgs e)
         {
-
+            isSecondActive = false;
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -173,6 +173,7 @@ namespace Graph2
 
         private void Button3_Click(object sender, EventArgs e)
         {
+            isSecondActive = false;
 
         }
 
@@ -266,5 +267,174 @@ namespace Graph2
         {
 
         }
+
+
+        Point draw_p;
+       /* private void Canvas_MouseDown(object sender, MouseEventArgs e)
+        {
+            draw_p = e.Location;
+
+            if (fill_mode && texture == null)
+            {
+                fill_algorithm(draw_p, Color.Red);
+            }
+
+            else if (fill_mode && texture != null)
+            {
+                fill_texture_algorithm(draw_p, 0, 0);
+            }
+
+            else if (border_mode)
+            {
+                border_algorithm(draw_p);
+            }
+        }
+       */
+       /* private void Canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (draw_mode && e.Button == MouseButtons.Left)
+            {
+                Graphics g = Graphics.FromImage(Canvas.Image);
+                //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.DrawLine(new Pen(borderColor, 1), draw_p, e.Location);
+                draw_p = e.Location;
+                Canvas.Invalidate();
+            }
+        }
+       */
+        private void fill_algorithm(Point p, Color fill_color)
+        {
+            Bitmap bitmap = (Bitmap)Canvas.Image;
+            Graphics g = Graphics.FromImage(bitmap);
+
+            if (bitmap.GetPixel(p.X, p.Y).ToArgb() == borderColor.ToArgb() || bitmap.GetPixel(p.X, p.Y).ToArgb() == fill_color.ToArgb())
+            {
+                return;
+            }
+
+            while (bitmap.GetPixel(p.X - 1, p.Y).ToArgb() != borderColor.ToArgb())
+            {
+                p.X -= 1;
+            }
+            Point start = p;
+
+
+            while (bitmap.GetPixel(p.X + 1, p.Y).ToArgb() != borderColor.ToArgb())
+            {
+                p.X += 1;
+            }
+            Point end = p;
+
+            g.DrawLine(new Pen(new SolidBrush(fill_color), 1), start, end);
+            Canvas.Invalidate();
+
+            while (start.X != end.X)
+            {
+                fill_algorithm(new Point(start.X, start.Y + 1), fill_color);
+                fill_algorithm(new Point(start.X, start.Y - 1), fill_color);
+
+                start.X += 1;
+            }
+        }
+
+
+        List<Point> fill_texture_points = new List<Point>();
+        private void fill_texture_algorithm(Point p, int texture_x, int texture_y)
+        {
+            Bitmap bitmap = (Bitmap)Canvas.Image;
+            Graphics g = Graphics.FromImage(bitmap);
+
+            if ((bitmap.GetPixel(p.X, p.Y).ToArgb() == borderColor.ToArgb()) || (bitmap.GetPixel(p.X, p.Y).ToArgb() != 0))
+            {
+                return;
+            }
+
+            while (bitmap.GetPixel(p.X - 1, p.Y).ToArgb() != borderColor.ToArgb())
+            {
+                p.X -= 1;
+            }
+            Point start = p;
+
+            while (bitmap.GetPixel(p.X + 1, p.Y).ToArgb() != borderColor.ToArgb())
+            {
+                p.X += 1;
+            }
+            Point end = p;
+
+            while (start.X != end.X)
+            {
+                g.DrawRectangle(new Pen(new SolidBrush(texture.GetPixel(texture_x, texture_y)), 1), new Rectangle(start.X, start.Y, 1, 1));
+                fill_texture_points.Add(start);
+                Canvas.Invalidate();
+
+                fill_texture_algorithm(new Point(start.X, start.Y + 1), texture_x, (texture_y + 1) % texture.Height);
+                fill_texture_algorithm(new Point(start.X, start.Y - 1), texture_x, texture_y - 1 < 0 ? texture.Height - 1 : texture_y - 1);
+
+                start.X += 1;
+                texture_x = (texture_x + 1) % texture.Width;
+            }
+        }
+
+        private void border_algorithm(Point p)
+        {
+            Bitmap bitmap = (Bitmap)Canvas.Image;
+            Graphics g = Graphics.FromImage(bitmap);
+            List<Point> points = new List<Point>();
+
+            while (bitmap.GetPixel(p.X, p.Y).ToArgb() != borderColor.ToArgb())
+            {
+                p.X += 1;
+            }
+
+            border_algorithm_REC(p, bitmap, ref points);
+
+            for (int i = 0; i < points.Count(); i++)
+            {
+                g.DrawRectangle(new Pen(Brushes.Red, 1), new Rectangle(points[i], new Size(1, 1)));
+            }
+            Canvas.Invalidate();
+        }
+
+        public void border_algorithm_REC(Point p, Bitmap bitmap, ref List<Point> points)
+        {
+            if (!points.Contains(p))
+            {
+                points.Add(p);
+
+                if (bitmap.GetPixel(p.X + 1, p.Y).ToArgb() == borderColor.ToArgb())
+                {
+                    border_algorithm_REC(new Point(p.X + 1, p.Y), bitmap, ref points);
+                }
+                if (bitmap.GetPixel(p.X + 1, p.Y - 1).ToArgb() == borderColor.ToArgb())
+                {
+                    border_algorithm_REC(new Point(p.X + 1, p.Y - 1), bitmap, ref points);
+                }
+                if (bitmap.GetPixel(p.X, p.Y - 1).ToArgb() == borderColor.ToArgb())
+                {
+                    border_algorithm_REC(new Point(p.X, p.Y - 1), bitmap, ref points);
+                }
+                if (bitmap.GetPixel(p.X - 1, p.Y - 1).ToArgb() == borderColor.ToArgb())
+                {
+                    border_algorithm_REC(new Point(p.X - 1, p.Y - 1), bitmap, ref points);
+                }
+                if (bitmap.GetPixel(p.X - 1, p.Y).ToArgb() == borderColor.ToArgb())
+                {
+                    border_algorithm_REC(new Point(p.X - 1, p.Y), bitmap, ref points);
+                }
+                if (bitmap.GetPixel(p.X - 1, p.Y + 1).ToArgb() == borderColor.ToArgb())
+                {
+                    border_algorithm_REC(new Point(p.X - 1, p.Y + 1), bitmap, ref points);
+                }
+                if (bitmap.GetPixel(p.X, p.Y + 1).ToArgb() == borderColor.ToArgb())
+                {
+                    border_algorithm_REC(new Point(p.X, p.Y + 1), bitmap, ref points);
+                }
+                if (bitmap.GetPixel(p.X + 1, p.Y + 1).ToArgb() == borderColor.ToArgb())
+                {
+                    border_algorithm_REC(new Point(p.X + 1, p.Y + 1), bitmap, ref points);
+                }
+            }
+        }
+
     }
 }
