@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
+
 
 namespace Graph2
 {
@@ -15,15 +17,20 @@ namespace Graph2
         bool border_mode = false;
         Color borderColor = Color.Black;
         Bitmap texture = null;
+
         public Form1()
         {
             InitializeComponent();
             g = Canvas.CreateGraphics();
+            Bitmap bitmap = new Bitmap(Canvas.ClientSize.Width, Canvas.ClientSize.Height);
+            Canvas.Image = bitmap;
+            
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
             isSecondActive = false;
+
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -256,9 +263,9 @@ namespace Graph2
 
             else
             {
-                /*pictureBox.Image = new Bitmap(dlg.FileName);
-                pictureBox.Invalidate();*/
-                texture = new Bitmap(dlg.FileName);
+               /* Canvas.Image = new Bitmap(dlg.FileName);
+               Canvas.Invalidate();
+                */texture = new Bitmap(dlg.FileName);
 
             }
         }
@@ -270,7 +277,7 @@ namespace Graph2
 
 
         Point draw_p;
-       /* private void Canvas_MouseDown(object sender, MouseEventArgs e)
+        private void Canvas_MouseDown(object sender, MouseEventArgs e)
         {
             draw_p = e.Location;
 
@@ -289,45 +296,49 @@ namespace Graph2
                 border_algorithm(draw_p);
             }
         }
-       */
-       /* private void Canvas_MouseMove(object sender, MouseEventArgs e)
+
+        private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (draw_mode && e.Button == MouseButtons.Left)
             {
-                Graphics g = Graphics.FromImage(Canvas.Image);
+                 g = Graphics.FromImage(Canvas.Image);
                 //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.DrawLine(new Pen(borderColor, 1), draw_p, e.Location);
                 draw_p = e.Location;
                 Canvas.Invalidate();
             }
         }
-       */
+
         private void fill_algorithm(Point p, Color fill_color)
         {
             Bitmap bitmap = (Bitmap)Canvas.Image;
-            Graphics g = Graphics.FromImage(bitmap);
+            int width = bitmap.Width;
+            int height = bitmap.Height;
+             g = Graphics.FromImage(bitmap);
 
+            
             if (bitmap.GetPixel(p.X, p.Y).ToArgb() == borderColor.ToArgb() || bitmap.GetPixel(p.X, p.Y).ToArgb() == fill_color.ToArgb())
             {
                 return;
             }
-
-            while (bitmap.GetPixel(p.X - 1, p.Y).ToArgb() != borderColor.ToArgb())
+            
+            while ((p.X-1 > 0) && (bitmap.GetPixel(p.X - 1, p.Y).ToArgb() != borderColor.ToArgb()))
             {
                 p.X -= 1;
+                
             }
+
             Point start = p;
 
-
-            while (bitmap.GetPixel(p.X + 1, p.Y).ToArgb() != borderColor.ToArgb())
+            while ((p.X+1 <width) &&  bitmap.GetPixel(p.X + 1, p.Y).ToArgb() != borderColor.ToArgb())
             {
                 p.X += 1;
             }
             Point end = p;
 
-            g.DrawLine(new Pen(new SolidBrush(fill_color), 1), start, end);
+            g.DrawLine(new Pen(new SolidBrush(fill_color), 1), start, end);            
+            Canvas.Image = bitmap;
             Canvas.Invalidate();
-
             while (start.X != end.X)
             {
                 fill_algorithm(new Point(start.X, start.Y + 1), fill_color);
@@ -341,21 +352,25 @@ namespace Graph2
         List<Point> fill_texture_points = new List<Point>();
         private void fill_texture_algorithm(Point p, int texture_x, int texture_y)
         {
+
             Bitmap bitmap = (Bitmap)Canvas.Image;
-            Graphics g = Graphics.FromImage(bitmap);
+            int width = bitmap.Width;
+            int height = bitmap.Height;
+            g = Graphics.FromImage(bitmap);
+
 
             if ((bitmap.GetPixel(p.X, p.Y).ToArgb() == borderColor.ToArgb()) || (bitmap.GetPixel(p.X, p.Y).ToArgb() != 0))
             {
                 return;
             }
 
-            while (bitmap.GetPixel(p.X - 1, p.Y).ToArgb() != borderColor.ToArgb())
+            while ((p.X - 1 > 0) && bitmap.GetPixel(p.X - 1, p.Y).ToArgb() != borderColor.ToArgb())
             {
                 p.X -= 1;
             }
             Point start = p;
 
-            while (bitmap.GetPixel(p.X + 1, p.Y).ToArgb() != borderColor.ToArgb())
+            while ((p.X + 1 < width) && bitmap.GetPixel(p.X + 1, p.Y).ToArgb() != borderColor.ToArgb())
             {
                 p.X += 1;
             }
@@ -364,12 +379,10 @@ namespace Graph2
             while (start.X != end.X)
             {
                 g.DrawRectangle(new Pen(new SolidBrush(texture.GetPixel(texture_x, texture_y)), 1), new Rectangle(start.X, start.Y, 1, 1));
-                fill_texture_points.Add(start);
                 Canvas.Invalidate();
-
                 fill_texture_algorithm(new Point(start.X, start.Y + 1), texture_x, (texture_y + 1) % texture.Height);
-                fill_texture_algorithm(new Point(start.X, start.Y - 1), texture_x, texture_y - 1 < 0 ? texture.Height - 1 : texture_y - 1);
-
+                fill_texture_algorithm(new Point(start.X, start.Y - 1), texture_x, texture_y - 1 < 0 ? texture.Height - 1 : texture_y - 1); 
+               
                 start.X += 1;
                 texture_x = (texture_x + 1) % texture.Width;
             }
@@ -378,10 +391,12 @@ namespace Graph2
         private void border_algorithm(Point p)
         {
             Bitmap bitmap = (Bitmap)Canvas.Image;
-            Graphics g = Graphics.FromImage(bitmap);
+            int width = bitmap.Width;
+            int height = bitmap.Height;
+            g = Graphics.FromImage(bitmap);
             List<Point> points = new List<Point>();
 
-            while (bitmap.GetPixel(p.X, p.Y).ToArgb() != borderColor.ToArgb())
+            while ((p.X + 1 < width) && bitmap.GetPixel(p.X, p.Y).ToArgb() != borderColor.ToArgb())
             {
                 p.X += 1;
             }

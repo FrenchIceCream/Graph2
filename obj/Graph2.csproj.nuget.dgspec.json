@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Сюзанна\\Source\\Repos\\Graph2\\Graph2.csproj": {}
+    "C:\\Users\\Сюзанна\\source\\repos\\Graph2\\Graph2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Сюзанна\\Source\\Repos\\Graph2\\Graph2.csproj": {
+    "C:\\Users\\Сюзанна\\source\\repos\\Graph2\\Graph2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Сюзанна\\Source\\Repos\\Graph2\\Graph2.csproj",
+        "projectUniqueName": "C:\\Users\\Сюзанна\\source\\repos\\Graph2\\Graph2.csproj",
         "projectName": "Graph2",
-        "projectPath": "C:\\Users\\Сюзанна\\Source\\Repos\\Graph2\\Graph2.csproj",
+        "projectPath": "C:\\Users\\Сюзанна\\source\\repos\\Graph2\\Graph2.csproj",
         "packagesPath": "C:\\Users\\Сюзанна\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Сюзанна\\Source\\Repos\\Graph2\\obj\\",
+        "outputPath": "C:\\Users\\Сюзанна\\source\\repos\\Graph2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Сюзанна\\AppData\\Roaming\\NuGet\\NuGet.Config",
