@@ -7,7 +7,6 @@ namespace Graph2
 {
     public partial class Form1 : Form
     {
-
         private bool isSecondActive = false;
         private Point? firstPoint = null;
         private Graphics g;
@@ -16,25 +15,32 @@ namespace Graph2
         bool fill_mode = false;
         bool border_mode = false;
         Color borderColor = Color.Black;
-        Bitmap texture = null;
+        Bitmap? texture = null;
 
         public Form1()
         {
             InitializeComponent();
             g = Canvas.CreateGraphics();
-            Bitmap bitmap = new Bitmap(Canvas.ClientSize.Width, Canvas.ClientSize.Height);
+            p1x.Text = "100";
+            p2x.Text = "350";
+            p3x.Text = "600";
+            p1y.Text = "400";
+            p2y.Text = "100";
+            p3y.Text = "400";
+            Bitmap bitmap = new Bitmap(Canvas.Width, Canvas.Height);
             Canvas.Image = bitmap;
-            
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            g.Clear(Color.White);
             isSecondActive = false;
 
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
+            g.Clear(Color.White);
             if (!isSecondActive)
             {
                 isSecondActive = true;
@@ -82,8 +88,8 @@ namespace Graph2
                 Swap(ref y0, ref y1);
             }
 
-            DrawPoint(steep, x0, y0, 1); // Эта функция автоматом меняет координаты местами в зависимости от переменной steep
-            DrawPoint(steep, x1, y1, 1); // Последний аргумент — интенсивность в долях единицы
+            DrawPoint(steep, x0, y0, 1); // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ steep
+            DrawPoint(steep, x1, y1, 1); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             float dx = x1 - x0;
             float dy = y1 - y0;
             float gradient = dy / dx;
@@ -178,11 +184,133 @@ namespace Graph2
             firstPoint = newPoint;
         }
 
+        //Р—Р°РґР°РЅРёРµ 3
         private void Button3_Click(object sender, EventArgs e)
         {
-            isSecondActive = false;
+            g.Clear(Color.White);
 
+            Point p1 = new Point(int.Parse(p1x.Text), int.Parse(p1y.Text));
+            Point p2 = new Point(int.Parse(p2x.Text), int.Parse(p2y.Text));
+            Point p3 = new Point(int.Parse(p3x.Text), int.Parse(p3y.Text));
+
+            DrawTriangle(p1, p2, p3, Color.Red, Color.Blue, Color.Yellow);
         }
+
+        private void DrawTriangle(Point p1_og, Point p2_og, Point p3_og, Color c1, Color c2, Color c3)
+        {
+            List<Point> sorted = new List<Point> { p1_og, p2_og, p3_og };
+            sorted.Sort((Point pp1, Point pp2) => -pp1.Y.CompareTo(pp2.Y));
+            //sorted.Reverse();
+
+            Point p1 = sorted[0];
+            Point p2 = sorted[1];
+            Point p3 = sorted[2];
+
+            //РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ С„-РёРё РґР»СЏ РЅР°С…РѕР¶РґРµРЅРёСЏ СЃР°РјРѕРіРѕ Р»РµРІРѕРіРѕ Рё РїСЂР°РІРѕРіРѕ РёРєСЃРѕРІ
+            float dy = p1.Y - p2.Y;
+            float dx = p1.X - p2.X;
+            float coef1 = dx / dy;
+
+            float dy2 = p1.Y - p3.Y;
+            float dx2 = p1.X - p3.X;
+            float coef2 = dx2 / dy2;
+
+            Bitmap bmp = new Bitmap(Canvas.Width, Canvas.Height, g);
+
+            int yi = p1.Y;
+            int xi = p1.X;
+            int y_start = p1.Y;
+            Color c_left = c1;
+            Color c_right = c1;
+            int x1; int x2;
+
+            int y_left = p2.Y;
+            int y_right = p3.Y;
+
+            while (yi != p2.Y)
+            {
+                float coef_left = (y_start - yi) / (float)(y_start - y_left); //РїСЂРѕР№РґРµРЅРЅРѕРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ РЅР° РѕР±С‰РµРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ
+                float coef_right = (y_start - yi) / (float)(y_start - y_right);
+                c_left = Color.FromArgb(255, (int)(c1.R * (1f - coef_left) + c2.R * coef_left), (int)(c1.G * (1f - coef_left) + c2.G * coef_left), (int)(c1.B * (1f - coef_left) + c2.B * coef_left));
+                c_right = Color.FromArgb(255, (int)(c1.R * (1f - coef_right) + c3.R * coef_right), (int)(c1.G * (1f - coef_right) + c3.G * coef_right), (int)(c1.B * (1f - coef_right) + c3.B * coef_right));
+
+                yi--;
+                (x1, x2) = FindLeftAndRight(yi, xi, coef1, coef2, p1, p1);
+                FillLine(x1, x2, yi, c_right, c_left, bmp, p1, p3, y_start);
+            }
+            y_start = yi;
+            dy = p2.Y - p3.Y;
+            dx = p2.X - p3.X;
+            coef1 = (dx / dy);
+            y_left = p3.Y;
+
+            while (yi != p3.Y)
+            {
+                float coef_left = (y_start - yi) / (float)(y_start - y_left); //РїСЂРѕР№РґРµРЅРЅРѕРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ РЅР° РѕР±С‰РµРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ
+                float coef_right = (p1.Y - yi) / (float)(p1.Y - y_right);
+                c_left = Color.FromArgb(255, (int)(c2.R * (1f - coef_left) + c3.R * coef_left), (int)(c2.G * (1f - coef_left) + c3.G * coef_left), (int)(c2.B * (1f - coef_left) + c3.B * coef_left));
+                c_right = Color.FromArgb(255, (int)(c1.R * (1f - coef_right) + c3.R * coef_right), (int)(c1.G * (1f - coef_right) + c3.G * coef_right), (int)(c1.B * (1f - coef_right) + c3.B * coef_right));
+
+                yi--;
+                (x1, x2) = FindLeftAndRight(yi, xi, coef1, coef2, p2, p3);
+                FillLine(x1, x2, yi, c_right, c_left, bmp, p1, p3, y_start);
+            }
+
+            g.DrawImage(bmp, 0, 0);
+        }
+
+        ValueTuple<int, int> FindLeftAndRight(float yi, int xi, float coef1, float coef2, Point extract1, Point extract2)
+        {
+            float y1_add = extract1.Y;
+            float y2_add = extract2.Y;
+            float x1_add = extract1.X;
+            float x2_add = extract2.X;
+
+            ValueTuple<int, int> lr;
+            int x_new = xi;
+            float x1 = (yi - y1_add) * coef1 + x1_add;
+            float x2 = (yi - y2_add) * coef2 + x2_add;
+            if (x1 < x_new)
+                while (x1 < x_new + 1)
+                    x_new--;
+            else
+                while (x1 > x_new - 1)
+                    x_new++;
+            lr.Item1 = x_new;
+
+            x_new = xi;
+            if (x2 < x_new)
+                while (x2 < x_new + 1)
+                    x_new--;
+            else
+                while (x2 > x_new - 1)
+                    x_new++;
+            lr.Item2 = x_new;
+
+            if (lr.Item1 > lr.Item2)
+                lr = (lr.Item2, lr.Item1);
+
+            return lr;
+        }
+
+        void FillLine(int x1, int x2, int yi, Color c_left, Color c_right, Bitmap bmp, Point p1, Point p2, int y_start)
+        {
+            int dist = x2 - x1;
+
+            Color c = c_left;
+
+            for (int i = x1 + 1; i <= x2; i++)
+            {
+                int j = i - x1;
+                float coef = (float)j / (float)dist;
+                float coef_minus = 1f - coef;
+                Debug.WriteLine(coef + " " + coef_minus + "\n");
+                c = Color.FromArgb(255, (int)(c_left.R * coef + c_right.R * coef_minus), (int)(c_left.G * coef + c_right.G * coef_minus), (int)(c_left.B * coef + c_right.B * coef_minus));
+                bmp.SetPixel(i, yi, c);
+            }
+        }
+        //РєРѕРЅРµС† Р·Р°РґР°РЅРёСЏ 3
+
 
         private void Canvas_Click(object sender, EventArgs e)
         {
@@ -196,7 +324,6 @@ namespace Graph2
 
         private void button4_Click(object sender, EventArgs e)
         {
-
             draw_mode = !draw_mode;
             fill_mode = false;
             border_mode = false;
@@ -263,9 +390,10 @@ namespace Graph2
 
             else
             {
-               /* Canvas.Image = new Bitmap(dlg.FileName);
-               Canvas.Invalidate();
-                */texture = new Bitmap(dlg.FileName);
+                /* Canvas.Image = new Bitmap(dlg.FileName);
+                Canvas.Invalidate();
+                 */
+                texture = new Bitmap(dlg.FileName);
 
             }
         }
@@ -296,13 +424,11 @@ namespace Graph2
                 border_algorithm(draw_p);
             }
         }
-
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (draw_mode && e.Button == MouseButtons.Left)
             {
-                 g = Graphics.FromImage(Canvas.Image);
-                //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                Graphics g = Graphics.FromImage(Canvas.Image);
                 g.DrawLine(new Pen(borderColor, 1), draw_p, e.Location);
                 draw_p = e.Location;
                 Canvas.Invalidate();
@@ -314,29 +440,29 @@ namespace Graph2
             Bitmap bitmap = (Bitmap)Canvas.Image;
             int width = bitmap.Width;
             int height = bitmap.Height;
-             g = Graphics.FromImage(bitmap);
+            g = Graphics.FromImage(bitmap);
 
-            
+
             if (bitmap.GetPixel(p.X, p.Y).ToArgb() == borderColor.ToArgb() || bitmap.GetPixel(p.X, p.Y).ToArgb() == fill_color.ToArgb())
             {
                 return;
             }
-            
-            while ((p.X-1 > 0) && (bitmap.GetPixel(p.X - 1, p.Y).ToArgb() != borderColor.ToArgb()))
+
+            while ((p.X - 1 > 0) && (bitmap.GetPixel(p.X - 1, p.Y).ToArgb() != borderColor.ToArgb()))
             {
                 p.X -= 1;
-                
+
             }
 
             Point start = p;
 
-            while ((p.X+1 <width) &&  bitmap.GetPixel(p.X + 1, p.Y).ToArgb() != borderColor.ToArgb())
+            while ((p.X + 1 < width) && bitmap.GetPixel(p.X + 1, p.Y).ToArgb() != borderColor.ToArgb())
             {
                 p.X += 1;
             }
             Point end = p;
 
-            g.DrawLine(new Pen(new SolidBrush(fill_color), 1), start, end);            
+            g.DrawLine(new Pen(new SolidBrush(fill_color), 1), start, end);
             Canvas.Image = bitmap;
             Canvas.Invalidate();
             while (start.X != end.X)
@@ -381,8 +507,8 @@ namespace Graph2
                 g.DrawRectangle(new Pen(new SolidBrush(texture.GetPixel(texture_x, texture_y)), 1), new Rectangle(start.X, start.Y, 1, 1));
                 Canvas.Invalidate();
                 fill_texture_algorithm(new Point(start.X, start.Y + 1), texture_x, (texture_y + 1) % texture.Height);
-                fill_texture_algorithm(new Point(start.X, start.Y - 1), texture_x, texture_y - 1 < 0 ? texture.Height - 1 : texture_y - 1); 
-               
+                fill_texture_algorithm(new Point(start.X, start.Y - 1), texture_x, texture_y - 1 < 0 ? texture.Height - 1 : texture_y - 1);
+
                 start.X += 1;
                 texture_x = (texture_x + 1) % texture.Width;
             }

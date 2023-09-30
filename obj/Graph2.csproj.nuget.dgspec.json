@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ð¡ÑŽÐ·Ð°Ð½Ð½Ð°\\source\\repos\\Graph2\\Graph2.csproj": {}
+    "D:\\Graphics_git\\Graph2_clone\\Graph2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ð¡ÑŽÐ·Ð°Ð½Ð½Ð°\\source\\repos\\Graph2\\Graph2.csproj": {
+    "C:\\Users\\Ñþçàííà\\Source\\Repos\\Graph2\\Graph2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ð¡ÑŽÐ·Ð°Ð½Ð½Ð°\\source\\repos\\Graph2\\Graph2.csproj",
+        "projectUniqueName": "C:\\Users\\Ñþçàííà\\Source\\Repos\\Graph2\\Graph2.csproj",
         "projectName": "Graph2",
-        "projectPath": "C:\\Users\\Ð¡ÑŽÐ·Ð°Ð½Ð½Ð°\\source\\repos\\Graph2\\Graph2.csproj",
-        "packagesPath": "C:\\Users\\Ð¡ÑŽÐ·Ð°Ð½Ð½Ð°\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ð¡ÑŽÐ·Ð°Ð½Ð½Ð°\\source\\repos\\Graph2\\obj\\",
+        "projectPath": "C:\\Users\\Ñþçàííà\\Source\\Repos\\Graph2\\Graph2.csproj",
+        "packagesPath": "C:\\Users\\Ñþçàííà\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ñþçàííà\\Source\\Repos\\Graph2\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Ð¡ÑŽÐ·Ð°Ð½Ð½Ð°\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\actua\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +62,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
