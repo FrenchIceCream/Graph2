@@ -416,7 +416,7 @@ namespace Graph2
 
             else if (fill_mode && texture != null)
             {
-                fill_texture_algorithm(draw_p, 0, 0);
+                fill_text(draw_p, 0, 0);
             }
 
             else if (border_mode)
@@ -443,7 +443,7 @@ namespace Graph2
             g = Graphics.FromImage(bitmap);
 
 
-            if (bitmap.GetPixel(p.X, p.Y).ToArgb() == borderColor.ToArgb() || bitmap.GetPixel(p.X, p.Y).ToArgb() == fill_color.ToArgb())
+            if (p.Y < 0 || p.Y >= height || bitmap.GetPixel(p.X, p.Y).ToArgb() == borderColor.ToArgb() || bitmap.GetPixel(p.X, p.Y).ToArgb() == fill_color.ToArgb())
             {
                 return;
             }
@@ -476,17 +476,31 @@ namespace Graph2
 
 
         List<Point> fill_texture_points = new List<Point>();
-        private void fill_texture_algorithm(Point p, int texture_x, int texture_y)
-        {
 
+        private void fill_text(Point p, int texture_x, int texture_y)
+        {
             Bitmap bitmap = (Bitmap)Canvas.Image;
             int width = bitmap.Width;
             int height = bitmap.Height;
             g = Graphics.FromImage(bitmap);
 
+            fill_texture_algorithm(p, texture_x, texture_y, g, height, width, bitmap);
+            Canvas.Invalidate();
+        }
 
-            if ((bitmap.GetPixel(p.X, p.Y).ToArgb() == borderColor.ToArgb()) || (bitmap.GetPixel(p.X, p.Y).ToArgb() != 0))
+        private void fill_texture_algorithm(Point p, int texture_x, int texture_y, Graphics g, int height, int width, Bitmap bitmap)
+        {
+            if (p.Y >= height || p.Y < 0 || p.X >= width || p.X < 0)
             {
+                /*Debug.WriteLine(bitmap.GetPixel(p.X, p.Y).ToArgb());
+                Debug.WriteLine((bitmap.GetPixel(p.X, p.Y).ToArgb() == borderColor.ToArgb()));
+                Debug.WriteLine(bitmap.GetPixel(p.X, p.Y).ToArgb() != Color.Black.ToArgb());*/
+                return;
+            }
+
+            if ((bitmap.GetPixel(p.X, p.Y).ToArgb() == borderColor.ToArgb()) || (bitmap.GetPixel(p.X, p.Y).ToArgb() == Color.White.ToArgb()))
+            {
+                //Debug.WriteLine((unsigned)bitmap.GetPixel(p.X, p.Y).ToArgb());
                 return;
             }
 
@@ -505,9 +519,8 @@ namespace Graph2
             while (start.X != end.X)
             {
                 g.DrawRectangle(new Pen(new SolidBrush(texture.GetPixel(texture_x, texture_y)), 1), new Rectangle(start.X, start.Y, 1, 1));
-                Canvas.Invalidate();
-                fill_texture_algorithm(new Point(start.X, start.Y + 1), texture_x, (texture_y + 1) % texture.Height);
-                fill_texture_algorithm(new Point(start.X, start.Y - 1), texture_x, texture_y - 1 < 0 ? texture.Height - 1 : texture_y - 1);
+                fill_texture_algorithm(new Point(start.X, start.Y + 1), texture_x, (texture_y + 1) % texture.Height, g, height, width, bitmap);
+                fill_texture_algorithm(new Point(start.X, start.Y + 1), texture_x, texture_y - 1 < 0 ? texture.Height - 1 : texture_y - 1, g, height, width, bitmap);
 
                 start.X += 1;
                 texture_x = (texture_x + 1) % texture.Width;
@@ -518,27 +531,30 @@ namespace Graph2
         {
             Bitmap bitmap = (Bitmap)Canvas.Image;
             int width = bitmap.Width;
-            int height = bitmap.Height;
+
             g = Graphics.FromImage(bitmap);
             List<Point> points = new List<Point>();
 
             while ((p.X + 1 < width) && bitmap.GetPixel(p.X, p.Y).ToArgb() != borderColor.ToArgb())
             {
                 p.X += 1;
+                //Debug.WriteLine(p.X);
             }
+
+            //Debug.WriteLine(width);
 
             border_algorithm_REC(p, bitmap, ref points);
 
             for (int i = 0; i < points.Count(); i++)
             {
-                g.DrawRectangle(new Pen(Brushes.Red, 1), new Rectangle(points[i], new Size(1, 1)));
+                g.DrawRectangle(new Pen(Brushes.Blue, 1), new Rectangle(points[i], new Size(1, 1)));
             }
             Canvas.Invalidate();
         }
 
         public void border_algorithm_REC(Point p, Bitmap bitmap, ref List<Point> points)
         {
-            if (!points.Contains(p))
+            if (!points.Contains(p) && p.X + 1 < Canvas.Width && p.X - 1 > 0 && p.Y + 1 < Canvas.Height && p.Y - 1 > 0)
             {
                 points.Add(p);
 
